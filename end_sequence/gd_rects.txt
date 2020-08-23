@@ -1,0 +1,11 @@
+1x1, id: 211, scale: 1
+
+2.64x1, id: 1767, scale: 3.79
+
+3x1, id: 579, scale: 1
+
+4x1, id: 1191, scale: 1
+
+15x1, id: 1757, scale: 2
+
+30x1, id: 1753, scale: 1

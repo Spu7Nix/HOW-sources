@@ -1,0 +1,18 @@
+{
+    "shapeAlpha": 122,
+    "maxShapeMutations": 150,
+    "shapeCount": 200,
+    "shapeTypes": 34,
+    "randomSeed": 9000,
+    "maxThreads": 4,
+    "scriptModeEnabled": true,
+    "scripts": [{
+            "key": "mutateRotatedRectangle",
+            "value": "def abs(num) {\n    if (num > 0) {\n        return num\n    } else {\n        return -num\n    }\n}\n\n\ndef mutateRotatedRectangle(shape) {\n    var xBound = shape.m_model.getWidth();\n    var yBound = shape.m_model.getHeight();\n\n    var r = randomInRange(0, 2);\n    var ratio;\n    if (shape.m_x2 != shape.m_x1 && shape.m_y2 != shape.m_y1) {\n        ratio = abs(shape.m_y2 - shape.m_y1) / abs(shape.m_x2 - shape.m_x1);\n    } else {\n        ratio = 0;\n    }\n    switch(r) {\n        case (0) {\n            var d = randomInRange(-16, 16);\n            var x_change = clamp(shape.m_x1 + d, 0, xBound - 1) - shape.m_x1;\n            shape.m_x1 = shape.m_x1 + x_change;\n            shape.m_y1 = shape.m_y1 + x_change * ratio;\n            break;\n        }\n        case (1) {\n           var d = randomInRange(-16, 16);\n            var x_change = clamp(shape.m_x2 + d, 0, xBound - 1) - shape.m_x1;\n            shape.m_x2 = shape.m_x2 + x_change;\n            shape.m_y2 = shape.m_y2 + x_change * ratio;\n            break;\n        }\n        case (2) {\n            shape.m_angle = clamp(shape.m_angle + randomInRange(-4, 4), 0, 360);\n            break;\n        }\n    }\n}\n"
+        },
+        {
+            "key": "setupRotatedRectangle",
+            "value": "def setupRotatedRectangle(shape) {\n    printToConsole(\"made a rect!\");\n    var xBound = shape.m_model.getWidth();\n    var yBound = shape.m_model.getHeight();\n\n    shape.m_x1 = randomInRange(0, xBound - 1);\n    shape.m_y1 = randomInRange(0, yBound - 1);\n    var w = randomInRange(1, 64);\n\n    if (shape.m_x1 + w > xBound) {\n        w = xBound - 1 - shape.m_x1;\n    }\n\n    if (shape.m_y1 + w > yBound) {\n        var val = yBound - 1 - shape.m_x1;\n        if (val < w) {\n            w = val\n        }\n    }\n\n    var r = randomInRange(0, 3);\n    shape.m_x2 = shape.m_x1 + w;\n    switch(r) {\n        case(0) {\n            shape.m_y2 = shape.m_y1 + w;\n            break;\n        }\n        case(1) {\n            shape.m_y2 = shape.m_y1 + w / 30;\n            break;\n        }\n        case(2) {\n            shape.m_y2 = shape.m_y1 + w / 15;\n            break;\n        }\n       \n        case(3) {\n            shape.m_y2 = shape.m_y1 + w / 3;\n            break;\n        }\n       \n    }\n    \n    \n    shape.m_angle = randomInRange(0, 360);\n}\n"
+        }
+    ]
+}

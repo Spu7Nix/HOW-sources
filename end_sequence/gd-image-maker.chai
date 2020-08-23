@@ -1,0 +1,126 @@
+//i hate chaiscript so much 
+var args = split(readFileAsString("geometrize_args.txt"), '\n')
+
+var inputPath = args[0];
+var outputPath = args[1];
+var testPath = args[2];
+var stepCount = 300;
+
+
+
+var image = loadImage(inputPath);
+if (image.isNull()) {
+    messageBox("Failed to load image from: " + inputPath);
+    return;
+}
+
+var bitmap = createBitmap(image);
+
+var task = SynchronousImageTask(bitmap);
+
+task.setPreferences(ImageTaskPreferences("rotating_squares2.json"))
+
+
+for (var i = 0; i < stepCount; ++i) {
+    task.stepModel();
+}
+
+if (writeStringToFile(exportShapeJson(task.getShapes()), outputPath)) {
+    //did thing
+}
+
+if (exportBitmap(task.getCurrent(), testPath)) {
+    // did thing
+}
+
+
+def abs(num) {
+    if (num > 0) {
+        return num
+    } else {
+        return -num
+    }
+}
+
+
+/*def setupRotatedRectangle(shape) {
+    printToConsole("made a rect!");
+    var xBound = shape.m_model.getWidth();
+    var yBound = shape.m_model.getHeight();
+
+    shape.m_x1 = randomInRange(0, xBound - 1);
+    shape.m_y1 = randomInRange(0, yBound - 1);
+    var w = randomInRange(1, 64);
+
+    if (shape.m_x1 + w > xBound) {
+        w = xBound - 1 - shape.m_x1;
+    }
+
+    if (shape.m_y1 + w > yBound) {
+        var val = yBound - 1 - shape.m_x1;
+        if (val < w) {
+            w = val
+        }
+    }
+
+    var r = randomInRange(0, 4);
+    shape.m_x2 = shape.m_x1 + w;
+    switch(r) {
+        case(0) {
+            shape.m_y2 = shape.m_y1 + w;
+            break;
+        }
+        case(1) {
+            shape.m_y2 = shape.m_y1 + w / 3;
+            break;
+        }
+        case(2) {
+            shape.m_y2 = shape.m_y1 + w / 4;
+            break;
+        }
+        case(3) {
+            shape.m_y2 = shape.m_y1 + w / 15;
+            break;
+        }
+        case(4) {
+            shape.m_y2 = shape.m_y1 + w / 30;
+            break;
+        }
+    }
+    
+    
+    shape.m_angle = randomInRange(0, 360);
+}
+
+def mutateRotatedRectangle(shape) {
+    var xBound = shape.m_model.getWidth();
+    var yBound = shape.m_model.getHeight();
+
+    var r = randomInRange(0, 2);
+    var ratio;
+    if (shape.m_x2 != shape.m_x1 && shape.m_y2 != shape.m_y1) {
+        ratio = (shape.m_x2 - shape.m_x1) / (shape.m_y2 - shape.m_y1);
+    } else {
+        ratio = 0;
+    }
+    switch(r) {
+        case (0) {
+            var d = randomInRange(-16, 16);
+            var x_change = clamp(shape.m_x1 + d, 0, xBound - 1) - shape.m_x1;
+            shape.m_x1 = clamp(shape.m_x1 + d, 0, xBound - 1);
+            shape.m_y1 = clamp(shape.m_y1 + x_change * ratio, 0, yBound - 1);
+            break;
+        }
+        case (1) {
+            var d = randomInRange(-16, 16);
+            var x_change = clamp(shape.m_x2 + d, 0, xBound - 1) - shape.m_x2;
+            shape.m_x2 = clamp(shape.m_x2 + d, 0, xBound - 1);
+            shape.m_y2 = clamp(shape.m_y2 + x_change * ratio, 0, yBound - 1);
+            break;
+        }
+        case (2) {
+            shape.m_angle = clamp(shape.m_angle + randomInRange(-4, 4), 0, 360);
+            break;
+        }
+    }
+}*/
