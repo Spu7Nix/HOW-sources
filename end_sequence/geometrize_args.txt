@@ -1,3 +1,0 @@
-frames/frame_images/end_seq_color_000162.png
-frames/color/end_seq_color_000162.json
-frames/color/end_seq_color_000162.png
